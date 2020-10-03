@@ -65,7 +65,7 @@ public class SimpleOrbit : BaseOrbit
     public override void ShowToPlayer(bool inactive)
     {
         base.ShowToPlayer(inactive);
-        Restart();
+        Restart(inactive);
     }
 
     void HideAll()
@@ -75,14 +75,21 @@ public class SimpleOrbit : BaseOrbit
         SetVisibility(false);
     }
 
-    void Restart()
+    void Restart(bool inactive)
     {
         SetVisibility(true);
         collectables.ForEach((c) => c.SetVisibility(true));
 
         if (collectables.Length == 0)
         {
-            SetLineRenderWithCompletedColor();
+            if (inactive)
+            {
+                SetLineRenderWithInactiveColor();
+            } else
+            {
+                SetLineRenderWithCompletedColor();
+            }
+
             GameScene.Instance.ShowNextOrbit();
             door.SetVisibility(true);
         } else

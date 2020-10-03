@@ -8,6 +8,8 @@ public class CameraBehaviour : MonoBehaviour
     [Header("Settings")]
     public Transform targetToLock;
 
+    public Vector3 offset = Vector3.one;
+
     [Header("Dependencies")]
     public PlayerBehaviour player;
 
@@ -15,10 +17,16 @@ public class CameraBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
+        UpdateCameraWithOffset();
         if (Application.isPlaying)
         {
             _toOrbit = Camera.main.transform.position - player.orbit.transform.position;
         }
+    }
+
+    private void OnValidate()
+    {
+        UpdateCameraWithOffset();
     }
 
     void LateUpdate()
@@ -35,5 +43,13 @@ public class CameraBehaviour : MonoBehaviour
         {
             Camera.main.transform.LookAt(targetToLock);
         }
+    }
+
+    void UpdateCameraWithOffset()
+    {
+        if (player == null)
+            return;
+
+        transform.position = player.transform.position + offset;
     }
 }

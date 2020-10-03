@@ -28,6 +28,11 @@ public class SimpleOrbit : MonoBehaviour
         UpdateLineRenderer();
     }
 
+    public Vector3 GetPositionAlognOrbit(float angle)
+    {
+        return transform.position + Quaternion.Euler(0, -angle, 0) * Vector3.forward * radius;
+    }
+
     void UpdateLineRenderer()
     {
         if (lineRenderer != null)

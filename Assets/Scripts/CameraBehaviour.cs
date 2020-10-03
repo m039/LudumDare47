@@ -5,6 +5,8 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CameraBehaviour : MonoBehaviour
 {
+    const float ReferenOrbitRadius = 11.57f; // Magic number.
+
     [Header("Settings")]
     public Transform targetToLock;
 
@@ -80,7 +82,15 @@ public class CameraBehaviour : MonoBehaviour
 
     float GetRightSpeed(float normalSpeed, float boostSpeed)
     {
-        return UseBoostSpeed ? boostSpeed : normalSpeed;
+
+        var currentOrbitRadius = GameScene.Instance.CurrentOrbit.radius;
+        var coeff = 1f;
+        if (currentOrbitRadius > ReferenOrbitRadius)
+        {
+            coeff = ReferenOrbitRadius / currentOrbitRadius;
+        }
+
+        return (UseBoostSpeed ? boostSpeed : normalSpeed) * coeff;
     }
 
     void UpdateCameraWithOffset()

@@ -1,6 +1,7 @@
 ﻿using m039.Common;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
@@ -30,6 +31,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     DigitalAxisHelper _axisHelperY = new DigitalAxisHelper();
 
+    bool _blockInput = false;
+
     void Awake()
     {
         _bulletStartRotation = bullet.rotation.eulerAngles;
@@ -47,15 +50,53 @@ public class PlayerBehaviour : MonoBehaviour
         UpdatePositionOffset();
     }
 
+
+
     void UpdatePositionOffset()
     {
-        _axisHelperX.SetValue(Input.GetAxisRaw("Horizontal"));
-        _axisHelperY.SetValue(Input.GetAxisRaw("Vertical"));
+        if (!_blockInput)
+        {
+            _axisHelperX.SetValue(Input.GetAxisRaw("Horizontal"));
+            _axisHelperY.SetValue(Input.GetAxisRaw("Vertical"));
+        }
     }
 
     void FixedUpdate()
     {
         UpdatePositionAndRotation();
+    }
+
+    public void TransferToNewOrbit(BaseOrbit newOrbit)
+    {
+        // Transfer angle.
+
+        var direction = (transform.position - newOrbit.transform.position)
+            .normalized
+            .WithY(0);
+
+        _angle = Vector3.Angle(Vector3.forward, direction);
+
+        // Reset input.
+
+        ResetInputAxisHelpers();
+    }
+
+    public void ResetInputAxisHelpers()
+    {
+        _axisHelperX.SetAxis(0f);
+        _axisHelperX.SetValue(0f);
+
+        _axisHelperY.SetAxis(0f);
+        _axisHelperY.SetValue(0f);
+
+        IEnumerator blockInput()
+        {
+            _blockInput = true;
+            yield return new WaitForSeconds(0.5f);
+            _blockInput = false;
+        }
+
+        StartCoroutine(blockInput());
     }
 
     void UpdatePositionAndRotation()

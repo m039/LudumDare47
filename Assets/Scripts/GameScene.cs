@@ -8,6 +8,8 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
     [Header("Dependencies")]
     public AudioSource audioSource;
 
+    public PlayerBehaviour player;
+
     public BaseOrbit[] orbits;
 
     public int startOrbitIndex = 0;
@@ -48,6 +50,8 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
         {
             CurrentOrbit = orbits[index + 1];
         }
+
+        player.TransferToNewOrbit(CurrentOrbit);
     }
 
     public void Play(AudioClip audioClip)

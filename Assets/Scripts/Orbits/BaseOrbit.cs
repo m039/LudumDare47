@@ -24,6 +24,8 @@ public class BaseOrbit : MonoBehaviour
 
     public Color lineColorInactive = Color.grey.WithAlpha(0.1f);
 
+    public Color lineColorCompleted = Color.blue.WithAlpha(0.1f);
+
     public int lineSegments = 32;
 
     public LineRenderer lineRenderer;
@@ -31,18 +33,6 @@ public class BaseOrbit : MonoBehaviour
     public StartLocation startLocation;
 
     bool _visibility = true;
-
-    protected void SetLineRenderWithNormalColor()
-    {
-        lineRenderer.startColor = lineColor;
-        lineRenderer.endColor = lineColor;
-    }
-
-    protected void SetLineRenderWithInactiveColor()
-    {
-        lineRenderer.startColor = lineColorInactive;
-        lineRenderer.endColor = lineColorInactive;
-    }
 
     void OnEnable()
     {
@@ -126,6 +116,24 @@ public class BaseOrbit : MonoBehaviour
             lineRenderer.gameObject.SetActive(visibility);
         }
         _visibility = visibility;
+    }
+
+    protected void SetLineRenderWithNormalColor()
+    {
+        lineRenderer.startColor = lineColor;
+        lineRenderer.endColor = lineColor;
+    }
+
+    protected void SetLineRenderWithInactiveColor()
+    {
+        lineRenderer.startColor = lineColorInactive;
+        lineRenderer.endColor = lineColorInactive;
+    }
+
+    protected void SetLineRenderWithCompletedColor()
+    {
+        lineRenderer.startColor = lineColorCompleted;
+        lineRenderer.endColor = lineColorCompleted;
     }
 
     public virtual void HideFromPlayer()

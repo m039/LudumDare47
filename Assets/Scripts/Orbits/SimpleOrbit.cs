@@ -32,9 +32,11 @@ public class SimpleOrbit : BaseOrbit
 
             if (collectables.All((c) => !c.GetVisibility()))
             {
+                SetLineRenderWithCompletedColor();
+
                 GameScene.Instance.ShowNextOrbit();
                 if (door != null)
-                {
+                {    
                     door.SetVisibility(true);
                 }
             }

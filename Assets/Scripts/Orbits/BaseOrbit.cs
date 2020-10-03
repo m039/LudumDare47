@@ -6,6 +6,14 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class BaseOrbit : MonoBehaviour
 {
+    public enum OrbitDirection
+    {
+        CCW, // Counter clock wise - default
+        CW // Clock wise
+    }
+
+    public OrbitDirection orbitDirection = OrbitDirection.CCW;
+
     public float radius = 10f;
 
     public float offsetRadius = 2f;
@@ -17,6 +25,8 @@ public class BaseOrbit : MonoBehaviour
     public int lineSegments = 32;
 
     public LineRenderer lineRenderer;
+
+    bool _visibility = true;
 
     void OnEnable()
     {
@@ -86,6 +96,28 @@ public class BaseOrbit : MonoBehaviour
     }
 
     public virtual void OnObjectPicked(PlayerBehaviour player, BaseOrbitObject orbitObject)
+    {
+    }
+
+    public bool GetVisibility()
+    {
+        return _visibility;
+    }
+
+    public virtual void SetVisibility(bool visibility)
+    {
+        if (lineRenderer != null)
+        {
+            lineRenderer.gameObject.SetActive(visibility);
+        }
+        _visibility = visibility;
+    }
+
+    public virtual void HideFromPlayer()
+    {
+    }
+
+    public virtual void ShowToPlayer()
     {
     }
 

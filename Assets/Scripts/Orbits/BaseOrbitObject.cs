@@ -5,6 +5,7 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class BaseOrbitObject : MonoBehaviour
 {
+
     [Range(0, 1)]
     public float position;
 

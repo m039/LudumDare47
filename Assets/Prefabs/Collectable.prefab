@@ -373,8 +373,8 @@ MonoBehaviour:
   position: 0.083
   positionOffsetMagnitude: 0
   positionOffsetAngle: 0
-  orbit: {fileID: 0}
   pickSound: {fileID: 8300000, guid: 392c5f5862f555b4cbf45f352665a0ae, type: 3}
+  orbit: {fileID: 0}
 --- !u!65 &5587508677679012347
 BoxCollider:
   m_ObjectHideFlags: 0

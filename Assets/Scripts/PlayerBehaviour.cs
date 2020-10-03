@@ -16,9 +16,6 @@ public class PlayerBehaviour : MonoBehaviour
     [Header("Settings")]
     public float speed = 5f;
 
-    [Header("Dependencies")]
-    public SimpleOrbit orbit;
-
     public Transform bullet;
 
     public Quaternion BulletRotation => bullet == null ? Quaternion.identity : bullet.rotation;
@@ -63,8 +60,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     void UpdatePositionAndRotation()
     {
+        var currentOrbit = GameScene.Instance.CurrentOrbit;
         var delta = Time.deltaTime * speed;
-        var deltaAngle = delta / (orbit.radius * 2) * Mathf.Rad2Deg;
+        var deltaAngle = delta / (currentOrbit.radius * 2) * Mathf.Rad2Deg;
 
         _angle += deltaAngle;
 
@@ -79,19 +77,42 @@ public class PlayerBehaviour : MonoBehaviour
 
         // Move player's center point.
 
-        transform.position = orbit.GetPositionAlognOrbit(_angle, Vector2.zero);
+        // Handle direction
+
+        var angle = _angle;
+
+        if (currentOrbit.orbitDirection == BaseOrbit.OrbitDirection.CW)
+        {
+            angle = 360 - _angle;
+        }
+
+        transform.position = currentOrbit.GetPositionAlognOrbit(angle, Vector2.zero);
 
         _axisHelperX.Update();
         _axisHelperY.Update();
 
         // Move and rotate the body of the player.
 
-        bullet.position = orbit.GetPositionAlognOrbit(_angle, _axisHelperX.GetAxis(), _axisHelperY.GetAxis());
-        bullet.rotation = Quaternion.Euler(_bulletStartRotation.x, _bulletStartRotation.y - _angle, _bulletStartRotation.z);
+        var xAxis = _axisHelperX.GetAxis();
+        var yAxis = _axisHelperY.GetAxis();
+
+        if (currentOrbit.orbitDirection == BaseOrbit.OrbitDirection.CW)
+        {
+            xAxis = -1 * xAxis;
+        }
+
+        bullet.position = currentOrbit.GetPositionAlognOrbit(angle, xAxis, yAxis);
+
+        if (currentOrbit.orbitDirection == BaseOrbit.OrbitDirection.CW)
+        {
+            angle += 180; // Rotate the bullet further.
+        }
+
+        bullet.rotation = Quaternion.Euler(_bulletStartRotation.x, _bulletStartRotation.y - angle, _bulletStartRotation.z);
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        orbit.PickObject(this, collision.gameObject.GetComponent<BaseOrbitObject>());
+        GameScene.Instance.CurrentOrbit.PickObject(this, collision.gameObject.GetComponent<BaseOrbitObject>());
     }
 }

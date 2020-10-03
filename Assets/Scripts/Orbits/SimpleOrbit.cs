@@ -32,6 +32,7 @@ public class SimpleOrbit : BaseOrbit
 
             if (collectables.All((c) => !c.GetVisibility()))
             {
+                GameScene.Instance.ShowNextOrbit();
                 if (door != null)
                 {
                     door.SetVisibility(true);
@@ -41,12 +42,36 @@ public class SimpleOrbit : BaseOrbit
 
         // If door picked
         if (orbitObject is Door) {
-            Restart();
+            NextOrbit();
         }
+    }
+
+    void NextOrbit()
+    {
+        HideAll();
+        GameScene.Instance.SelectNextOrbit();
+    }
+
+    public override void HideFromPlayer()
+    {
+        HideAll();
+    }
+
+    public override void ShowToPlayer()
+    {
+        Restart();
+    }
+
+    void HideAll()
+    {
+        collectables.ForEach((c) => c.SetVisibility(false));
+        door.SetVisibility(false);
+        SetVisibility(false);
     }
 
     void Restart()
     {
+        SetVisibility(true);
         collectables.ForEach((c) => c.SetVisibility(true));
         if (door != null)
         {

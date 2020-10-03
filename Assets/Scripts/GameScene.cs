@@ -47,7 +47,13 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
             }
         }
 
+        if (CurrentOrbit.IsEmpty)
+        {
+            ShowNextOrbit();
+        }
+
         player.TransferToNewOrbit(CurrentOrbit, true);
+        camera.ResetCamera();
     }
 
     public void ShowNextOrbit()

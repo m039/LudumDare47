@@ -34,6 +34,8 @@ public class BaseOrbit : MonoBehaviour
 
     bool _visibility = true;
 
+    public virtual bool IsEmpty => true;
+
     void OnEnable()
     {
         UpdateLineRenderer();

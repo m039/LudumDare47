@@ -19,11 +19,12 @@ public class BaseOrbitObject : MonoBehaviour
 
     public SimpleOrbit orbit;
 
+    [System.NonSerialized]
     Transform _renderer;
 
     bool _visibility = true;
 
-    void Awake()
+    protected virtual void Awake()
     {
         _renderer = transform.Find("Renderer");
     }

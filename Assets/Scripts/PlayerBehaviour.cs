@@ -84,6 +84,7 @@ public class PlayerBehaviour : MonoBehaviour
         // Reset input.
 
         ResetInputAxisHelpers();
+        UpdatePositionAndRotation();
     }
 
     public void ResetInputAxisHelpers()

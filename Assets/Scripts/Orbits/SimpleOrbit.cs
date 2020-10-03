@@ -12,6 +12,8 @@ public class SimpleOrbit : BaseOrbit
 
     public Door door;
 
+    public override bool IsEmpty => collectables.Length == 0;
+
     void Awake()
     {
         if (Application.isPlaying)
@@ -77,7 +79,13 @@ public class SimpleOrbit : BaseOrbit
     {
         SetVisibility(true);
         collectables.ForEach((c) => c.SetVisibility(true));
-        if (door != null)
+
+        if (collectables.Length == 0)
+        {
+            SetLineRenderWithCompletedColor();
+            GameScene.Instance.ShowNextOrbit();
+            door.SetVisibility(true);
+        } else
         {
             door.SetVisibility(false);
         }

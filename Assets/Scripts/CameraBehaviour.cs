@@ -31,17 +31,12 @@ public class CameraBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        UpdateCameraWithOffset();
-
-        if (targetToLock != null)
-        {
-            _lookAtPosition = targetToLock.transform.position;
-        }
+        ResetCamera();
     }
 
     private void OnValidate()
     {
-        UpdateCameraWithOffset();
+        ResetCamera();
     }
 
     void LateUpdate()
@@ -82,7 +77,6 @@ public class CameraBehaviour : MonoBehaviour
 
     float GetRightSpeed(float normalSpeed, float boostSpeed)
     {
-
         var currentOrbitRadius = GameScene.Instance.CurrentOrbit.radius;
         var coeff = 1f;
         if (currentOrbitRadius > ReferenOrbitRadius)
@@ -91,6 +85,25 @@ public class CameraBehaviour : MonoBehaviour
         }
 
         return (UseBoostSpeed ? boostSpeed : normalSpeed) * coeff;
+    }
+
+    public void ResetCamera()
+    {
+        UpdateCameraWithOffset();
+
+        // Reset position.
+
+        if (Application.isPlaying)
+        {
+            Camera.main.transform.position = _newPosition;
+        }
+
+        // Reset look at.
+
+        if (targetToLock != null)
+        {
+            _lookAtPosition = targetToLock.transform.position;
+        }
     }
 
     void UpdateCameraWithOffset()

@@ -36,6 +36,8 @@ public class BaseOrbit : MonoBehaviour
 
     public virtual bool IsEmpty => true;
 
+    public bool VisibileToPlayer { get; set; } = false;
+
     void OnEnable()
     {
         UpdateLineRenderer();
@@ -140,10 +142,13 @@ public class BaseOrbit : MonoBehaviour
 
     public virtual void HideFromPlayer()
     {
+        VisibileToPlayer = false;
     }
 
     public virtual void ShowToPlayer(bool inactive)
     {
+        VisibileToPlayer = true; 
+
         if (inactive)
         {
             SetLineRenderWithInactiveColor();

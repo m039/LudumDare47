@@ -61,7 +61,11 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
         var index = System.Array.IndexOf(orbits, CurrentOrbit);
         if (index != -1 && index + 1 < orbits.Length)
         {
-            orbits[index + 1].ShowToPlayer(true);
+            var orbit = orbits[index + 1];
+
+            if (!orbit.VisibileToPlayer) { 
+                orbit.ShowToPlayer(true);
+            }
         }
     }
 

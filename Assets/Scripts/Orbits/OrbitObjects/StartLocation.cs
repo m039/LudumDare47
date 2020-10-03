@@ -6,6 +6,6 @@ public class StartLocation : BaseOrbitObject
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.blue.WithAlpha(0.4f);
-        Gizmos.DrawSphere(transform.position, 0.2f);
+        Gizmos.DrawCube(transform.position, Vector3.one * 1f);
     }
 }

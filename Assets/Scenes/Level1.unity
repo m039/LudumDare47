@@ -6079,6 +6079,26 @@ PrefabInstance:
       propertyPath: radius
       value: 17.09
       objectReference: {fileID: 0}
+    - target: {fileID: 3126363205553268400, guid: 9835341ecb513b64eb8cd11ae8417ec6,
+        type: 3}
+      propertyPath: lineColorInactive.a
+      value: 0.007843138
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126363205553268400, guid: 9835341ecb513b64eb8cd11ae8417ec6,
+        type: 3}
+      propertyPath: lineColorInactive.r
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126363205553268400, guid: 9835341ecb513b64eb8cd11ae8417ec6,
+        type: 3}
+      propertyPath: lineColorInactive.g
+      value: 0.6313726
+      objectReference: {fileID: 0}
+    - target: {fileID: 3126363205553268400, guid: 9835341ecb513b64eb8cd11ae8417ec6,
+        type: 3}
+      propertyPath: lineColorInactive.b
+      value: 0.6313726
+      objectReference: {fileID: 0}
     - target: {fileID: 3126363205553268401, guid: 9835341ecb513b64eb8cd11ae8417ec6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7872,7 +7892,7 @@ MonoBehaviour:
   orbits:
   - {fileID: 1359440153}
   - {fileID: 3126363204989747619}
-  startOrbitIndex: 1
+  startOrbitIndex: 0
 --- !u!4 &1549741930
 Transform:
   m_ObjectHideFlags: 0
@@ -8148,7 +8168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9bc8e8d40cd0314695e409a1eefea7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetToLock: {fileID: 1087258921}
+  targetToLock: {fileID: 1218854602}
   offset: {x: 10.96, y: 4.36, z: 5.48}
   player: {fileID: 1087258922}
   moveSpeed: 22

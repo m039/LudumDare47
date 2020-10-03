@@ -40,7 +40,7 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
         {
             if (orbit == CurrentOrbit)
             {
-                orbit.ShowToPlayer();
+                orbit.ShowToPlayer(false);
             } else
             {
                 orbit.HideFromPlayer();
@@ -55,7 +55,7 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
         var index = System.Array.IndexOf(orbits, CurrentOrbit);
         if (index != -1 && index + 1 < orbits.Length)
         {
-            orbits[index + 1].ShowToPlayer();
+            orbits[index + 1].ShowToPlayer(true);
         }
     }
 
@@ -67,6 +67,7 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
             CurrentOrbit = orbits[index + 1];
         }
 
+        CurrentOrbit.ShowToPlayer(false);
         player.TransferToNewOrbit(CurrentOrbit, false);
     }
 

@@ -54,11 +54,13 @@ public class SimpleOrbit : BaseOrbit
 
     public override void HideFromPlayer()
     {
+        base.HideFromPlayer();
         HideAll();
     }
 
-    public override void ShowToPlayer()
+    public override void ShowToPlayer(bool inactive)
     {
+        base.ShowToPlayer(inactive);
         Restart();
     }
 

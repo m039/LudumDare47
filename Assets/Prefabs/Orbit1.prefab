@@ -282,6 +282,7 @@ MonoBehaviour:
   offsetRadius: 2.94
   lineWidth: 0.2
   lineColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0.07058824}
+  lineColorInactive: {r: 0.5, g: 0.5, b: 0.5, a: 0.1}
   lineSegments: 64
   lineRenderer: {fileID: 3126363203688135627}
   startLocation: {fileID: 7383461768855978999}

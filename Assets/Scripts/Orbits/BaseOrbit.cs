@@ -20,7 +20,9 @@ public class BaseOrbit : MonoBehaviour
 
     public float lineWidth = 2f;
 
-    public Color lineColor = Color.green.WithAlpha(0.4f);
+    public Color lineColor = Color.grey.WithAlpha(0.4f);
+
+    public Color lineColorInactive = Color.grey.WithAlpha(0.1f);
 
     public int lineSegments = 32;
 
@@ -29,6 +31,18 @@ public class BaseOrbit : MonoBehaviour
     public StartLocation startLocation;
 
     bool _visibility = true;
+
+    protected void SetLineRenderWithNormalColor()
+    {
+        lineRenderer.startColor = lineColor;
+        lineRenderer.endColor = lineColor;
+    }
+
+    protected void SetLineRenderWithInactiveColor()
+    {
+        lineRenderer.startColor = lineColorInactive;
+        lineRenderer.endColor = lineColorInactive;
+    }
 
     void OnEnable()
     {
@@ -69,8 +83,7 @@ public class BaseOrbit : MonoBehaviour
     {
         if (lineRenderer != null)
         {
-            lineRenderer.startColor = lineColor;
-            lineRenderer.endColor = lineColor;
+            SetLineRenderWithNormalColor();
 
             lineRenderer.positionCount = lineSegments;
 
@@ -119,8 +132,15 @@ public class BaseOrbit : MonoBehaviour
     {
     }
 
-    public virtual void ShowToPlayer()
+    public virtual void ShowToPlayer(bool inactive)
     {
+        if (inactive)
+        {
+            SetLineRenderWithInactiveColor();
+        } else
+        {
+            SetLineRenderWithNormalColor();
+        }
     }
 
     private void OnDrawGizmosSelected()

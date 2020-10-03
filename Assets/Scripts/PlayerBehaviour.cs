@@ -18,6 +18,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     Vector3 _bulletStartRotation;
 
+    public float OrbitAngle => _angle;
+
     void Awake()
     {
 

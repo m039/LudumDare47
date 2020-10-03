@@ -90,17 +90,6 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        var obj = collision.gameObject.GetComponent<BaseOrbitObject>();
-
-        if (obj is Collectable collectable)
-        {
-            GameScene.Instance.Play(collectable.pickSound);
-            collision.gameObject.SetActive(false);
-        }
-        else if (obj is Door door)
-        {
-            GameScene.Instance.Play(door.enterSound);
-            collision.gameObject.SetActive(false);
-        }
+        orbit.PickObject(this, collision.gameObject.GetComponent<BaseOrbitObject>());
     }
 }

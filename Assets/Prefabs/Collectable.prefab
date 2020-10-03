@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5587508676752799321}
   - component: {fileID: 5587508676752799334}
   m_Layer: 0
-  m_Name: CollectableRenderer
+  m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,6 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -298,7 +297,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &5587508676752799334
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -375,8 +373,8 @@ MonoBehaviour:
   position: 0.083
   positionOffsetMagnitude: 0
   positionOffsetAngle: 0
-  pickSound: {fileID: 8300000, guid: 392c5f5862f555b4cbf45f352665a0ae, type: 3}
   orbit: {fileID: 0}
+  pickSound: {fileID: 8300000, guid: 392c5f5862f555b4cbf45f352665a0ae, type: 3}
 --- !u!65 &5587508677679012347
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5569,7 +5569,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-221550
+  m_Name: pb_Mesh28774
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5737,7 +5737,7 @@ GameObject:
   - component: {fileID: 577975393}
   - component: {fileID: 577975394}
   m_Layer: 0
-  m_Name: OrbitRenderer
+  m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6749,6 +6749,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 488471932}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &933905621 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5587508677679012345, guid: 8060bec22a668c14ab5e2c36893acd31,
+    type: 3}
+  m_PrefabInstance: {fileID: 5587508678160881337}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94dd160b3c9639d4d85cd288e1de160f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &989268973 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5587508677679012344, guid: 8060bec22a668c14ab5e2c36893acd31,
@@ -7553,7 +7565,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265287413}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -7571,10 +7583,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: 1
-  positionOffsetMagnitude: 0
-  positionOffsetAngle: 0
+  positionOffsetMagnitude: 1
+  positionOffsetAngle: 270
+  pickSound: {fileID: 8300000, guid: abf888dfc8ca584439f06389ca32eefb, type: 3}
   orbit: {fileID: 1359440153}
-  enterSound: {fileID: 8300000, guid: abf888dfc8ca584439f06389ca32eefb, type: 3}
 --- !u!4 &1265287416
 Transform:
   m_ObjectHideFlags: 0
@@ -7583,7 +7595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1265287413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0000022380232, y: 0, z: 12.8}
+  m_LocalPosition: {x: -0.0000022380232, y: -2.94, z: 12.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1659582421}
@@ -7798,11 +7810,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 12.8
-  offsetRadius: 2.01
+  offsetRadius: 2.94
   lineWidth: 0.2
   lineColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0.07058824}
   lineSegments: 64
   lineRenderer: {fileID: 577975394}
+  collectables:
+  - {fileID: 933905621}
+  door: {fileID: 1265287415}
 --- !u!4 &1380877985 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5587508677679012344, guid: 8060bec22a668c14ab5e2c36893acd31,
@@ -7961,7 +7976,7 @@ GameObject:
   - component: {fileID: 1659582423}
   - component: {fileID: 1659582422}
   m_Layer: 0
-  m_Name: DoorRenderer
+  m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8853,7 +8868,7 @@ PrefabInstance:
     - target: {fileID: 5587508677679012344, guid: 8060bec22a668c14ab5e2c36893acd31,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.9395906
+      value: 1.8695906
       objectReference: {fileID: 0}
     - target: {fileID: 5587508677679012344, guid: 8060bec22a668c14ab5e2c36893acd31,
         type: 3}

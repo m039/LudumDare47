@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class BaseOrbit : MonoBehaviour
 {
     public float radius = 10f;
@@ -72,6 +73,20 @@ public class BaseOrbit : MonoBehaviour
                 lineRenderer.SetPosition(i, Quaternion.Euler(0, angle, 0) * Vector3.forward * radius);
             }
         }
+    }
+
+    public void PickObject(PlayerBehaviour player, BaseOrbitObject orbitObject)
+    {
+        if (orbitObject == null)
+            return;
+
+        GameScene.Instance.Play(orbitObject.pickSound);
+
+        OnObjectPicked(player, orbitObject);
+    }
+
+    public virtual void OnObjectPicked(PlayerBehaviour player, BaseOrbitObject orbitObject)
+    {
     }
 
     private void OnDrawGizmosSelected()

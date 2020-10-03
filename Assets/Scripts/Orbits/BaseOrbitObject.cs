@@ -14,7 +14,18 @@ public class BaseOrbitObject : MonoBehaviour
     [Range(0, 360)]
     public float positionOffsetAngle;
 
+    public AudioClip pickSound;
+
     public SimpleOrbit orbit;
+
+    Transform _renderer;
+
+    bool _visibility = true;
+
+    void Awake()
+    {
+        _renderer = transform.Find("Renderer");
+    }
 
     void OnEnable()
     {
@@ -43,8 +54,21 @@ public class BaseOrbitObject : MonoBehaviour
         }
     }
 
+    public bool GetVisibility() => _visibility;
+
     public virtual void SetVisibility(bool visibility)
     {
+        if (_renderer != null)
+        {
+            _renderer.gameObject.SetActive(visibility);
+        }
+
+        if (GetComponent<Collider>() is Collider collider)
+        {
+            collider.enabled = visibility;
+        }
+
+        _visibility = visibility;
     }
 
 }

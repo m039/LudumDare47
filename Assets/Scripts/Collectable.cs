@@ -7,6 +7,12 @@ public class Collectable : MonoBehaviour
     [Range(0, 1)]
     public float position;
 
+    [Range(0, 1)]
+    public float positionOffsetMagnitude;
+
+    [Range(0, 360)]
+    public float positionOffsetAngle;
+
     public AudioClip pickSound;
 
     [Header("Dependencies")]
@@ -28,7 +34,14 @@ public class Collectable : MonoBehaviour
         {
             var angle = position * 2 * Mathf.PI * Mathf.Rad2Deg;
 
-            transform.position = orbit.GetPositionAlognOrbit(angle);
+            var positionOffset = Vector2.zero;
+
+            positionOffset.y = Mathf.Sin(positionOffsetAngle * Mathf.Deg2Rad);
+            positionOffset.x = Mathf.Cos(positionOffsetAngle * Mathf.Deg2Rad);
+
+            positionOffset *= positionOffsetMagnitude;
+
+            transform.position = orbit.GetPositionAlognOrbit(angle, positionOffset);
         }
     }
 

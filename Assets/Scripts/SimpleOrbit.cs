@@ -9,6 +9,8 @@ public class SimpleOrbit : MonoBehaviour
     [Header("Settings")]
     public float radius = 10f;
 
+    public float offsetRadius = 2f;
+
     public float lineWidth = 2f;
 
     public Color lineColor = Color.green.WithAlpha(0.4f);
@@ -28,9 +30,29 @@ public class SimpleOrbit : MonoBehaviour
         UpdateLineRenderer();
     }
 
-    public Vector3 GetPositionAlognOrbit(float angle)
+    public Vector3 GetPositionAlognOrbit(float angle, float positionOffsetX, float positionOffsetY)
     {
-        return transform.position + Quaternion.Euler(0, -angle, 0) * Vector3.forward * radius;
+        return GetPositionAlognOrbit(angle, new Vector2(positionOffsetX, positionOffsetY));
+    }
+
+    public Vector3 GetPositionAlognOrbit(float angle, Vector2 positionOffset)
+    {
+        positionOffset.x = Mathf.Clamp(positionOffset.x, -1, 1);
+        positionOffset.y = Mathf.Clamp(positionOffset.y, -1, 1);
+
+        if (Mathf.Abs(positionOffset.magnitude) > 1)
+        {
+            positionOffset.Normalize();
+        }
+
+        var direction = Quaternion.Euler(0, -angle, 0) * Vector3.forward;
+
+        var offset = Vector3.zero;
+
+        offset += positionOffset.x * direction * offsetRadius;
+        offset += positionOffset.y * Vector3.up * offsetRadius;
+
+        return transform.position + direction * radius + offset;
     }
 
     void UpdateLineRenderer()
@@ -59,5 +81,8 @@ public class SimpleOrbit : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + Vector3.forward * radius, offsetRadius);
     }
 }

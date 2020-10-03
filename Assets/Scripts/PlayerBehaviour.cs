@@ -33,7 +33,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         _angle += deltaAngle;
 
-        transform.position = orbit.GetPositionAlognOrbit(_angle);
+        transform.position = orbit.GetPositionAlognOrbit(_angle, Vector2.zero);
 
         if (_angle > 360)
         {

@@ -13,15 +13,9 @@ public class CameraBehaviour : MonoBehaviour
     [Header("Dependencies")]
     public PlayerBehaviour player;
 
-    Vector3 _toOrbit;
-
     private void OnEnable()
     {
         UpdateCameraWithOffset();
-        if (Application.isPlaying)
-        {
-            _toOrbit = Camera.main.transform.position - player.orbit.transform.position;
-        }
     }
 
     private void OnValidate()
@@ -31,13 +25,7 @@ public class CameraBehaviour : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Application.isPlaying)
-        {
-            if (player != null)
-            {
-                Camera.main.transform.position = player.orbit.transform.position + Quaternion.Euler(0, -player.OrbitAngle, 0) * _toOrbit;
-            }
-        }
+        UpdateCameraWithOffset();
 
         if (targetToLock != null)
         {
@@ -50,6 +38,8 @@ public class CameraBehaviour : MonoBehaviour
         if (player == null)
             return;
 
-        transform.position = player.transform.position + offset;
+        var rotation = Quaternion.Euler(0, player.BulletRotation.eulerAngles.y, 0);
+
+        transform.position = player.transform.position + rotation * offset;
     }
 }

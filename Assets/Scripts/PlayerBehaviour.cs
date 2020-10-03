@@ -21,6 +21,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     public Transform bullet;
 
+    public Quaternion BulletRotation => bullet == null ? Quaternion.identity : bullet.rotation;
+
     float _angle = 0f;
 
     Vector3 _bulletStartRotation;

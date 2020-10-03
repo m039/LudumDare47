@@ -40,7 +40,7 @@ public class SimpleOrbit : MonoBehaviour
         positionOffset.x = Mathf.Clamp(positionOffset.x, -1, 1);
         positionOffset.y = Mathf.Clamp(positionOffset.y, -1, 1);
 
-        if (Mathf.Abs(positionOffset.magnitude) > 1)
+        if (positionOffset.magnitude > 1)
         {
             positionOffset.Normalize();
         }

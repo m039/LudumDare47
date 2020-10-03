@@ -15,7 +15,9 @@ public class PlayerBehaviour : MonoBehaviour
     const float DigitalAxisSensitivity = 5;
 
     [Header("Settings")]
-    public float speed = 5f;
+    public float normalSpeed = 20f;
+
+    public float boostSpeed = 40f;
 
     public Transform bullet;
 
@@ -50,14 +52,13 @@ public class PlayerBehaviour : MonoBehaviour
         UpdatePositionOffset();
     }
 
-
-
     void UpdatePositionOffset()
     {
         if (!_blockInput)
         {
             _axisHelperX.SetValue(Input.GetAxisRaw("Horizontal"));
             _axisHelperY.SetValue(Input.GetAxisRaw("Vertical"));
+            GameScene.Instance.UseBoostSpeed = Input.GetButton("Fire1");
         }
     }
 
@@ -66,8 +67,12 @@ public class PlayerBehaviour : MonoBehaviour
         UpdatePositionAndRotation();
     }
 
-    public void TransferToNewOrbit(BaseOrbit newOrbit)
+    public void TransferToNewOrbit(BaseOrbit newOrbit, bool force)
     {
+        if (force) {
+            transform.position = newOrbit.startLocation.transform.position;
+        }
+
         // Transfer angle.
 
         var direction = (transform.position - newOrbit.transform.position)
@@ -89,6 +94,8 @@ public class PlayerBehaviour : MonoBehaviour
         _axisHelperY.SetAxis(0f);
         _axisHelperY.SetValue(0f);
 
+        GameScene.Instance.UseBoostSpeed = false;
+
         IEnumerator blockInput()
         {
             _blockInput = true;
@@ -101,6 +108,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     void UpdatePositionAndRotation()
     {
+        var speed = GameScene.Instance.UseBoostSpeed ? boostSpeed : normalSpeed;
         var currentOrbit = GameScene.Instance.CurrentOrbit;
         var delta = Time.deltaTime * speed;
         var deltaAngle = delta / (currentOrbit.radius * 2) * Mathf.Rad2Deg;

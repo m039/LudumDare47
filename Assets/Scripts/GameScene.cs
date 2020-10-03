@@ -10,11 +10,25 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
 
     public PlayerBehaviour player;
 
+    public CameraBehaviour camera;
+
     public BaseOrbit[] orbits;
 
     public int startOrbitIndex = 0;
 
     public BaseOrbit CurrentOrbit { get; set; }
+
+    public bool UseBoostSpeed
+    {
+        get {
+            return camera.UseBoostSpeed;
+        }
+
+        set
+        {
+            camera.UseBoostSpeed = value;
+        }
+    }
 
     void Awake()
     {
@@ -32,6 +46,8 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
                 orbit.HideFromPlayer();
             }
         }
+
+        player.TransferToNewOrbit(CurrentOrbit, true);
     }
 
     public void ShowNextOrbit()
@@ -51,7 +67,7 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
             CurrentOrbit = orbits[index + 1];
         }
 
-        player.TransferToNewOrbit(CurrentOrbit);
+        player.TransferToNewOrbit(CurrentOrbit, false);
     }
 
     public void Play(AudioClip audioClip)

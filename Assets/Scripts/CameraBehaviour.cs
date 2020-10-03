@@ -13,13 +13,19 @@ public class CameraBehaviour : MonoBehaviour
     [Header("Dependencies")]
     public PlayerBehaviour player;
 
-    public float moveSpeed = 2;
+    public float moveSpeed = 20;
 
-    public float lookAtSpeed = 2f;
+    public float moveSpeedBoost = 40f;
+
+    public float lookAtSpeed = 10f;
+
+    public float lookAtSpeedBoost = 20f;
 
     Vector3 _newPosition;
 
     Vector3 _lookAtPosition;
+
+    public bool UseBoostSpeed { get; set; } = false;
 
     private void OnEnable()
     {
@@ -45,7 +51,7 @@ public class CameraBehaviour : MonoBehaviour
 
         // Move to new position.
         {
-            var delta = moveSpeed * Time.deltaTime;
+            var delta = GetRightSpeed(moveSpeed, moveSpeedBoost) * Time.deltaTime;
             var direction = (_newPosition - Camera.main.transform.position);
             if (direction.magnitude > delta)
             {
@@ -59,7 +65,7 @@ public class CameraBehaviour : MonoBehaviour
 
         if (targetToLock != null)
         {
-            var delta = lookAtSpeed * Time.deltaTime;
+            var delta = GetRightSpeed(lookAtSpeed, lookAtSpeedBoost) * Time.deltaTime;
             var direction = (targetToLock.position - _lookAtPosition);
             if (direction.magnitude > delta)
             {
@@ -70,6 +76,11 @@ public class CameraBehaviour : MonoBehaviour
 
             Camera.main.transform.LookAt(_lookAtPosition);
         }
+    }
+
+    float GetRightSpeed(float normalSpeed, float boostSpeed)
+    {
+        return UseBoostSpeed ? boostSpeed : normalSpeed;
     }
 
     void UpdateCameraWithOffset()

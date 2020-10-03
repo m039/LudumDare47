@@ -26,6 +26,8 @@ public class BaseOrbit : MonoBehaviour
 
     public LineRenderer lineRenderer;
 
+    public StartLocation startLocation;
+
     bool _visibility = true;
 
     void OnEnable()

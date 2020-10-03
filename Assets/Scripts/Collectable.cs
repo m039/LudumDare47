@@ -7,6 +7,8 @@ public class Collectable : MonoBehaviour
     [Range(0, 1)]
     public float position;
 
+    public AudioClip pickSound;
+
     [Header("Dependencies")]
     public SimpleOrbit orbit;
 
@@ -29,4 +31,5 @@ public class Collectable : MonoBehaviour
             transform.position = orbit.GetPositionAlognOrbit(angle);
         }
     }
+
 }

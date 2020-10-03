@@ -46,4 +46,13 @@ public class PlayerBehaviour : MonoBehaviour
 
         bullet.rotation = Quaternion.Euler(_bulletStartRotation.x, _bulletStartRotation.y - _angle, _bulletStartRotation.z);
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.GetComponent<Collectable>() is Collectable collectable)
+        {
+            GameScene.Instance.Play(collectable.pickSound);
+            Destroy(collision.gameObject);
+        }
+    }
 }

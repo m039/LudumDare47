@@ -75,10 +75,14 @@ public class PlayerBehaviour : MonoBehaviour
             _angle += 360;
         }
 
+        // Move player's center point.
+
         transform.position = orbit.GetPositionAlognOrbit(_angle, Vector2.zero);
 
         _axisHelperX.Update();
         _axisHelperY.Update();
+
+        // Move and rotate the body of the player.
 
         bullet.position = orbit.GetPositionAlognOrbit(_angle, _axisHelperX.GetAxis(), _axisHelperY.GetAxis());
         bullet.rotation = Quaternion.Euler(_bulletStartRotation.x, _bulletStartRotation.y - _angle, _bulletStartRotation.z);
@@ -86,10 +90,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.GetComponent<Collectable>() is Collectable collectable)
+        var obj = collision.gameObject.GetComponent<BaseOrbitObject>();
+
+        if (obj is Collectable collectable)
         {
             GameScene.Instance.Play(collectable.pickSound);
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
+        }
+        else if (obj is Door door)
+        {
+            GameScene.Instance.Play(door.enterSound);
+            collision.gameObject.SetActive(false);
         }
     }
 }

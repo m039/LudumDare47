@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 [ExecuteInEditMode]
-public class Collectable : MonoBehaviour
+public class BaseOrbitObject : MonoBehaviour
 {
-    [Header("Settings")]
     [Range(0, 1)]
     public float position;
 
@@ -13,9 +14,6 @@ public class Collectable : MonoBehaviour
     [Range(0, 360)]
     public float positionOffsetAngle;
 
-    public AudioClip pickSound;
-
-    [Header("Dependencies")]
     public SimpleOrbit orbit;
 
     void OnEnable()
@@ -43,6 +41,10 @@ public class Collectable : MonoBehaviour
 
             transform.position = orbit.GetPositionAlognOrbit(angle, positionOffset);
         }
+    }
+
+    public virtual void SetVisibility(bool visibility)
+    {
     }
 
 }

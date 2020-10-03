@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
-public class SimpleOrbit : MonoBehaviour
+public class BaseOrbit : MonoBehaviour
 {
-    [Header("Settings")]
     public float radius = 10f;
 
     public float offsetRadius = 2f;
@@ -17,7 +15,6 @@ public class SimpleOrbit : MonoBehaviour
 
     public int lineSegments = 32;
 
-    [Header("Dependencies")]
     public LineRenderer lineRenderer;
 
     void OnEnable()

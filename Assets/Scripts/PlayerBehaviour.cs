@@ -171,6 +171,10 @@ public class PlayerBehaviour : MonoBehaviour
         if (RestaringGame)
             return;
 
-        GameScene.Instance.CurrentOrbit.PickObject(this, collision.gameObject.GetComponent<BaseOrbitObject>());
+        var orbit = collision.gameObject.GetComponent<BaseOrbitObject>();
+        if (orbit != null)
+        {
+            orbit.orbit.PickObject(this, orbit);
+        }
     }
 }

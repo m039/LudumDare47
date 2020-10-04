@@ -76,8 +76,10 @@ public class SimpleOrbit : BaseOrbit
 
     public override void ShowToPlayer(bool inactive)
     {
+        var oldVisibilityToPlayer = VisibileToPlayer;
+
         base.ShowToPlayer(inactive);
-        Restart(inactive);
+        Restart(inactive, !oldVisibilityToPlayer);
     }
 
     void HideAll()
@@ -87,12 +89,16 @@ public class SimpleOrbit : BaseOrbit
         SetVisibility(false);
     }
 
-    void Restart(bool inactive)
+    void Restart(bool inactive, bool resetCollectables)
     {
         SetVisibility(true);
-        _collectables.ForEach((c) => c.SetVisibility(true));
 
-        if (_collectables.Length == 0)
+        if (resetCollectables)
+        {
+            _collectables.ForEach((c) => c.SetVisibility(true));
+        }
+
+        if (_collectables.Length == 0 || _collectables.All((c) => !c.GetVisibility()))
         {
             if (inactive)
             {

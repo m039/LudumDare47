@@ -105,7 +105,7 @@ public class PlayerBehaviour : MonoBehaviour
         IEnumerator blockInput()
         {
             _blockInput = true;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(GameScene.Instance.CurrentOrbit.blockInputTimeWhenEntered);
             _blockInput = false;
         }
 

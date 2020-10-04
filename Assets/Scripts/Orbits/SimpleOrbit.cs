@@ -8,11 +8,11 @@ public class SimpleOrbit : BaseOrbit
 {
     [Header("Simple Orbit")]
 
-    public Collectable[] collectables;
-
     public Door door;
 
-    public override bool IsEmpty => collectables.Length == 0;
+    public override bool IsEmpty => _collectables.Length == 0;
+
+    Collectable[] _collectables;
 
     Spike[] _spikes; // Should it be more generic?
 
@@ -24,6 +24,7 @@ public class SimpleOrbit : BaseOrbit
         }
 
         _spikes = transform.GetComponentsInChildren<Spike>();
+        _collectables = transform.GetComponentsInChildren<Collectable>();
     }
 
     public override void OnObjectPicked(PlayerBehaviour player, BaseOrbitObject orbitObject)
@@ -38,7 +39,7 @@ public class SimpleOrbit : BaseOrbit
 
             // Show door if needed
 
-            if (collectables.All((c) => !c.GetVisibility()))
+            if (_collectables.All((c) => !c.GetVisibility()))
             {
                 SetLineRenderWithCompletedColor();
 
@@ -81,7 +82,7 @@ public class SimpleOrbit : BaseOrbit
 
     void HideAll()
     {
-        collectables.ForEach((c) => c.SetVisibility(false));
+        _collectables.ForEach((c) => c.SetVisibility(false));
         door.SetVisibility(false);
         SetVisibility(false);
     }
@@ -89,9 +90,9 @@ public class SimpleOrbit : BaseOrbit
     void Restart(bool inactive)
     {
         SetVisibility(true);
-        collectables.ForEach((c) => c.SetVisibility(true));
+        _collectables.ForEach((c) => c.SetVisibility(true));
 
-        if (collectables.Length == 0)
+        if (_collectables.Length == 0)
         {
             if (inactive)
             {

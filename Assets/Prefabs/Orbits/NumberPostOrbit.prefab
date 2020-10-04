@@ -85,6 +85,7 @@ MonoBehaviour:
   radius: 15.02
   offsetRadius: 4
   lineWidth: 0.2
+  blockInputTimeWhenEntered: 0.5
   lineColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 0.07058824}
   lineColorInactive: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.039215688}
   lineColorCompleted: {r: 0.09019608, g: 0.34901962, b: 0.49411768, a: 0.09803922}

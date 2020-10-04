@@ -20,6 +20,8 @@ public class BaseOrbit : MonoBehaviour
 
     public float lineWidth = 2f;
 
+    public float blockInputTimeWhenEntered = 0.5f;
+
     public Color lineColor = Color.grey.WithAlpha(0.4f);
 
     public Color lineColorInactive = Color.grey.WithAlpha(0.1f);

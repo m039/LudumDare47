@@ -6,6 +6,8 @@ using UnityEngine.Rendering;
 public class Collectable : BaseOrbitObject
 {
 
+    const float CoeffEmissionMultiplier = 1.5f;
+
     [HideInInspector]
     public float EmissionValue = 0f;
 
@@ -13,8 +15,10 @@ public class Collectable : BaseOrbitObject
 
     float _previousEmissionValue = float.NaN;
 
-    //[NonSerialized]
-    //Renderer _renderer;
+    [NonSerialized]
+    Renderer _renderer;
+
+    //MaterialPropertyBlock _materialPropertyBlock;
 
     protected override void Awake()
     {
@@ -23,8 +27,10 @@ public class Collectable : BaseOrbitObject
         if (!Application.isPlaying)
             return;
 
-        //_renderer = GetComponentInChildren<Renderer>();
-        //_renderer.material = new Material(_renderer.material);
+        _renderer = GetComponentInChildren<Renderer>();
+        _renderer.material = new Material(_renderer.material);
+
+        //_materialPropertyBlock = new MaterialPropertyBlock();
     }
 
     private void LateUpdate()
@@ -41,7 +47,17 @@ public class Collectable : BaseOrbitObject
 
     void SetEmissionValue(float value)
     {
-        //_renderer.material.SetColor("_EmissionColor", EmissionColor.WithValue(value));
+        if (_renderer == null)
+            return;
+
+        //_renderer.GetPropertyBlock(_materialPropertyBlock);
+
+        //_materialPropertyBlock.SetColor("_EmissionColor", EmissionColor.WithValue(value * CoeffEmissionMultiplier));
+
+        //_renderer.SetPropertyBlock(_materialPropertyBlock);
+
+        _renderer.material.SetColor("_EmissionColor", EmissionColor.WithValue(value * CoeffEmissionMultiplier));
+        _renderer.material.EnableKeyword("_EMISSION");
     }
 
 }

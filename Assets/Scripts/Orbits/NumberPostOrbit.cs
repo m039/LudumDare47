@@ -15,6 +15,8 @@ public class NumberPostOrbit : BaseOrbit
 
     public AudioClip wrongSequenceSound;
 
+    int _checkNumber;
+
     void Awake()
     {
         if (Application.isPlaying)
@@ -27,13 +29,27 @@ public class NumberPostOrbit : BaseOrbit
     {
         // If picked collectable
 
-        if (orbitObject is NumberPost)
+        if (orbitObject is NumberPost numberPost)
         {
-            orbitObject.SetVisibility(false);
+            if (_checkNumber == numberPost.number)
+            {
+                // Right number.
 
-            // Show door if needed
+                GameScene.Instance.Play(numberPost.pickSound);
+                numberPost.SetVisibility(false);
+                _checkNumber++;
+            } else
+            {
+                // Wrong number.
 
-            if (numberPosts.All((c) => !c.GetVisibility()))
+                GameScene.Instance.Play(wrongSequenceSound);
+                numberPosts.ForEach((c) => c.SetVisibility(true));
+                _checkNumber = 1;
+            }
+
+            // Picked all object in the right order.
+
+            if (_checkNumber > numberPosts.Length)
             {
                 SetLineRenderWithCompletedColor();
 
@@ -87,5 +103,7 @@ public class NumberPostOrbit : BaseOrbit
         {
             door.SetVisibility(false);
         }
+
+        _checkNumber = 1;
     }
 }

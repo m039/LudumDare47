@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 3126363205553268401}
   - component: {fileID: 3126363205553268400}
   m_Layer: 0
-  m_Name: Orbit1
+  m_Name: SimpleOrbit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

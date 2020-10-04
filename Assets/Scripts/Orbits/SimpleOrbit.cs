@@ -24,6 +24,8 @@ public class SimpleOrbit : BaseOrbit
 
     public override void OnObjectPicked(PlayerBehaviour player, BaseOrbitObject orbitObject)
     {
+        base.OnObjectPicked(player, orbitObject);
+
         // If picked collectable
 
         if (orbitObject is Collectable)

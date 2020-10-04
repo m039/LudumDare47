@@ -99,13 +99,12 @@ public class BaseOrbit : MonoBehaviour
         if (orbitObject == null)
             return;
 
-        GameScene.Instance.Play(orbitObject.pickSound);
-
         OnObjectPicked(player, orbitObject);
     }
 
     public virtual void OnObjectPicked(PlayerBehaviour player, BaseOrbitObject orbitObject)
     {
+        GameScene.Instance.Play(orbitObject.pickSound);
     }
 
     public bool GetVisibility()

@@ -2,9 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameScene : SingletonMonoBehaviour<GameScene>
 {
+    const float DefaultMotionBlurIntensity = 0f;
+
+    const float DefaultLensDistortionIntensity = 0f;
+
     [Header("Dependencies")]
     public AudioSource audioSource;
 
@@ -14,19 +20,40 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
 
     public BaseOrbit[] orbits;
 
+    public Volume globalVolume;
+
+    public float boostMotionBlurInensity = 0f;
+
+    public float boostLensDistortionIntensity = 0f;
+
     public int startOrbitIndex = 0;
 
     public BaseOrbit CurrentOrbit { get; set; }
 
+    MotionBlur _motionBlurTmp;
+
+    LensDistortion _lensDistortionTmp;
+
     public bool UseBoostSpeed
     {
-        get {
+        get
+        {
             return camera.UseBoostSpeed;
         }
 
         set
         {
             camera.UseBoostSpeed = value;
+
+            if (globalVolume.profile.TryGet(out _motionBlurTmp))
+            {
+                _motionBlurTmp.intensity.value = value ? boostMotionBlurInensity : DefaultMotionBlurIntensity;
+            }
+
+            if (globalVolume.profile.TryGet(out _lensDistortionTmp))
+            {
+                _lensDistortionTmp.intensity.value = value ? boostLensDistortionIntensity : DefaultLensDistortionIntensity;
+            }
         }
     }
 
@@ -47,6 +74,8 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
 
         player.TransferToNewOrbit(CurrentOrbit, true);
         camera.ResetCamera();
+
+        UseBoostSpeed = false;
     }
 
     public void ShowNextOrbit()

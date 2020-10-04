@@ -38,12 +38,12 @@ public class BaseOrbit : MonoBehaviour
 
     public bool VisibileToPlayer { get; set; } = false;
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         UpdateLineRenderer();
     }
 
-    void OnValidate()
+    protected virtual void OnValidate()
     {
         UpdateLineRenderer();
     }
@@ -158,7 +158,7 @@ public class BaseOrbit : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    protected virtual void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, radius);

@@ -30,22 +30,15 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
         }
     }
 
-    void Awake()
+    void Start()
     {
-        CurrentOrbit = orbits[startOrbitIndex];
-
         // Set default states to orbits.
 
-        foreach (var orbit in orbits)
-        {
-            if (orbit == CurrentOrbit)
-            {
-                orbit.ShowToPlayer(false);
-            } else
-            {
-                orbit.HideFromPlayer();
-            }
-        }
+        orbits.ForEach((o) => o.HideFromPlayer());
+
+        CurrentOrbit = orbits[startOrbitIndex];
+
+        CurrentOrbit.ShowToPlayer(false);
 
         if (CurrentOrbit.IsEmpty)
         {

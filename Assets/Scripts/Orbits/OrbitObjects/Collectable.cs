@@ -13,8 +13,8 @@ public class Collectable : BaseOrbitObject
 
     float _previousEmissionValue = float.NaN;
 
-    [NonSerialized]
-    Renderer _renderer;
+    //[NonSerialized]
+    //Renderer _renderer;
 
     protected override void Awake()
     {
@@ -23,8 +23,8 @@ public class Collectable : BaseOrbitObject
         if (!Application.isPlaying)
             return;
 
-        _renderer = GetComponentInChildren<Renderer>();
-        _renderer.material = new Material(_renderer.material);
+        //_renderer = GetComponentInChildren<Renderer>();
+        //_renderer.material = new Material(_renderer.material);
     }
 
     private void LateUpdate()
@@ -41,7 +41,7 @@ public class Collectable : BaseOrbitObject
 
     void SetEmissionValue(float value)
     {
-        _renderer.material.SetColor("_EmissionColor", EmissionColor.WithValue(value));
+        //_renderer.material.SetColor("_EmissionColor", EmissionColor.WithValue(value));
     }
 
 }

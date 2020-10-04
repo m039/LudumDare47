@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,9 @@ public class BaseOrbitObject : MonoBehaviour
 
     public AudioClip pickSound;
 
-    public SimpleOrbit orbit;
+    public BaseOrbit orbit;
 
-    [System.NonSerialized]
+    [NonSerialized]
     Transform _renderer;
 
     bool _visibility = true;
@@ -29,12 +30,12 @@ public class BaseOrbitObject : MonoBehaviour
         _renderer = transform.Find("Renderer");
     }
 
-    void OnEnable()
+    protected virtual void OnEnable()
     {
         UpdatePosition();
     }
 
-    void OnValidate()
+    protected virtual void OnValidate()
     {
         UpdatePosition();
     }

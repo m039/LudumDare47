@@ -10,6 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
 {
     const bool DigitalAxisSnap = false;
 
+    const float CoeffDefaultOrbitOffsetRadius = 4f; // Helps to normalizise movement speed. It should be generalized, but for now constant works better.
+
     const float DigitalAxisGravity = 3;
 
     const float DigitalAxisSensitivity = 5;
@@ -42,12 +44,12 @@ public class PlayerBehaviour : MonoBehaviour
         _bulletStartRotation = bullet.rotation.eulerAngles;
 
         _axisHelperX.snap = () => DigitalAxisSnap;
-        _axisHelperX.gravity = () => DigitalAxisGravity;
-        _axisHelperX.sensitivity = () => DigitalAxisSensitivity;
+        _axisHelperX.gravity = () => DigitalAxisGravity * CoeffDefaultOrbitOffsetRadius / GameScene.Instance.CurrentOrbit.offsetRadius;
+        _axisHelperX.sensitivity = () => DigitalAxisSensitivity * CoeffDefaultOrbitOffsetRadius / GameScene.Instance.CurrentOrbit.offsetRadius;
 
         _axisHelperY.snap = () => DigitalAxisSnap;
-        _axisHelperY.gravity = () => DigitalAxisGravity;
-        _axisHelperY.sensitivity = () => DigitalAxisSensitivity;
+        _axisHelperY.gravity = () => DigitalAxisGravity * CoeffDefaultOrbitOffsetRadius / GameScene.Instance.CurrentOrbit.offsetRadius;
+        _axisHelperY.sensitivity = () => DigitalAxisSensitivity * CoeffDefaultOrbitOffsetRadius / GameScene.Instance.CurrentOrbit.offsetRadius;
     }
 
     void Update() {
@@ -85,6 +87,12 @@ public class PlayerBehaviour : MonoBehaviour
             .WithY(0);
 
         _angle = Vector3.Angle(Vector3.forward, direction);
+
+        // Translate the angle into 0 to 360 range.
+        if (Vector3.Cross(Vector3.forward, direction).y > 0)
+        {
+            _angle = 360 - _angle;
+        }
 
         // Reset input.
 

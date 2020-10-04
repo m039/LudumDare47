@@ -61,7 +61,13 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
 
     void Start()
     {
-        RestartGame(startOrbitIndex);
+        var orbitIndex = 0;
+
+#if UNITY_EDITOR
+        orbitIndex = startOrbitIndex;
+#endif
+
+        RestartGame(orbitIndex);
     }
 
     void RestartGame(int orbitIndex)

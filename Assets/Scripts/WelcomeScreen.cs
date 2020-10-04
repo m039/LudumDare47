@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WelcomeScreen : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class WelcomeScreen : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
 
         yield return _CanvasGroupFader.FadeIn();
+
+        SceneManager.LoadScene("Menu");
     }
 
 }

@@ -20,7 +20,10 @@ public class SimpleOrbit : BaseOrbit
     {
         if (Application.isPlaying)
         {
-            door.SetVisibility(false);
+            if (door != null)
+            {
+                door.SetVisibility(false);
+            }
         }
 
         _spikes = transform.GetComponentsInChildren<Spike>();
@@ -85,7 +88,10 @@ public class SimpleOrbit : BaseOrbit
     void HideAll()
     {
         _collectables.ForEach((c) => c.SetVisibility(false));
-        door.SetVisibility(false);
+        if (door != null)
+        {
+            door.SetVisibility(false);
+        }
         SetVisibility(false);
     }
 

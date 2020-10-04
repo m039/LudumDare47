@@ -18,6 +18,8 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
 
     public CameraBehaviour camera;
 
+    public CanvasGroupFader fader;
+
     public BaseOrbit[] orbits;
 
     public Volume globalVolume;
@@ -59,11 +61,16 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
 
     void Start()
     {
+        RestartGame(startOrbitIndex);
+    }
+
+    void RestartGame(int orbitIndex)
+    {
         // Set default states to orbits.
 
         orbits.ForEach((o) => o.HideFromPlayer());
 
-        CurrentOrbit = orbits[startOrbitIndex];
+        CurrentOrbit = orbits[orbitIndex];
 
         CurrentOrbit.ShowToPlayer(false);
 
@@ -76,6 +83,34 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
         camera.ResetCamera();
 
         UseBoostSpeed = false;
+
+        StartCoroutine(fader.FadeIn());
+    }
+
+    public void RestartFromLastCheckpoint()
+    {
+        IEnumerator restart()
+        {
+            player.RestaringGame = true;
+            yield return fader.FadeOut();
+
+            int checkpointIndex = 0;
+
+            for (int i = System.Array.IndexOf(orbits, CurrentOrbit); i > 0; i--)
+            {
+                if (orbits[i].isCheckpoint)
+                {
+                    checkpointIndex = i;
+                    break;
+                }
+            }
+
+            RestartGame(checkpointIndex);
+            player.RestaringGame = false;
+            yield return fader.FadeIn();
+        }
+
+        StartCoroutine(restart());
     }
 
     public void ShowNextOrbit()
@@ -105,6 +140,9 @@ public class GameScene : SingletonMonoBehaviour<GameScene>
 
     public void Play(AudioClip audioClip)
     {
+        if (audioClip == null)
+            return;
+
         audioSource.PlayOneShot(audioClip);
     }
 

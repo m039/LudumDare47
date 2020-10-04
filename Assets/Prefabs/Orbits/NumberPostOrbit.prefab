@@ -91,6 +91,7 @@ MonoBehaviour:
   lineSegments: 64
   lineRenderer: {fileID: 3988288263439358602}
   startLocation: {fileID: 8812839213508715190}
+  isCheckpoint: 0
   numberPosts:
   - {fileID: 5801991468203565800}
   - {fileID: 5801991468299948977}

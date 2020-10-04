@@ -14,12 +14,16 @@ public class SimpleOrbit : BaseOrbit
 
     public override bool IsEmpty => collectables.Length == 0;
 
+    Spike[] _spikes; // Should it be more generic?
+
     void Awake()
     {
         if (Application.isPlaying)
         {
             door.SetVisibility(false);
         }
+
+        _spikes = transform.GetComponentsInChildren<Spike>();
     }
 
     public override void OnObjectPicked(PlayerBehaviour player, BaseOrbitObject orbitObject)
@@ -44,6 +48,11 @@ public class SimpleOrbit : BaseOrbit
                     door.SetVisibility(true);
                 }
             }
+        }
+
+        if (orbitObject is Spike)
+        {
+            GameScene.Instance.RestartFromLastCheckpoint();
         }
 
         // If door picked
@@ -98,5 +107,12 @@ public class SimpleOrbit : BaseOrbit
         {
             door.SetVisibility(false);
         }
+    }
+
+    public override void SetVisibility(bool visibility)
+    {
+        base.SetVisibility(visibility);
+
+        _spikes.ForEach((c) => c.SetVisibility(visibility));
     }
 }

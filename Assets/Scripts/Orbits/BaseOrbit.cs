@@ -32,6 +32,8 @@ public class BaseOrbit : MonoBehaviour
 
     public StartLocation startLocation;
 
+    public bool isCheckpoint = false;
+
     bool _visibility = true;
 
     public virtual bool IsEmpty => true;

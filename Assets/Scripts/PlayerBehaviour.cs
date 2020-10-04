@@ -35,6 +35,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     bool _blockInput = false;
 
+    public bool RestaringGame { get; set; } 
+
     void Awake()
     {
         _bulletStartRotation = bullet.rotation.eulerAngles;
@@ -54,11 +56,14 @@ public class PlayerBehaviour : MonoBehaviour
 
     void UpdatePositionOffset()
     {
-        if (!_blockInput)
+        if (!_blockInput && !RestaringGame)
         {
             _axisHelperX.SetValue(Input.GetAxisRaw("Horizontal"));
             _axisHelperY.SetValue(Input.GetAxisRaw("Vertical"));
             GameScene.Instance.UseBoostSpeed = Input.GetButton("Fire1");
+        } else
+        {
+            GameScene.Instance.UseBoostSpeed = false; // Just in case.
         }
     }
 
@@ -163,6 +168,9 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        if (RestaringGame)
+            return;
+
         GameScene.Instance.CurrentOrbit.PickObject(this, collision.gameObject.GetComponent<BaseOrbitObject>());
     }
 }

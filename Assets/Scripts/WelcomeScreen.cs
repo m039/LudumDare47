@@ -13,11 +13,11 @@ public class WelcomeScreen : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f);
 
-        yield return _CanvasGroupFader.FadeSceneOut();
+        yield return _CanvasGroupFader.FadeOut();
 
         yield return new WaitForSeconds(2.0f);
 
-        yield return _CanvasGroupFader.FadeSceneIn();
+        yield return _CanvasGroupFader.FadeIn();
     }
 
 }
